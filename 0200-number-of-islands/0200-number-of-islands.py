@@ -14,7 +14,6 @@ class Solution:
             
             while(islandQueue):
                 rowCurrent, collumnCurrent = islandQueue.popleft()
-                isVisited.add((rowCurrent, collumnCurrent))
                 
                 directions = [[1,0], [-1,0], [0,1], [0,-1]]
                 for x, y in directions:
