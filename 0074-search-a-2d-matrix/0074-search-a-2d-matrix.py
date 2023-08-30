@@ -16,7 +16,6 @@ class Solution:
         if not (top <= bottom):
             return False
         
-        midRow = (top + bottom) // 2
         left, right = 0, collumns - 1
         while (left <= right):
             midCol = (left + right) // 2
