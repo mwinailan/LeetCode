@@ -7,7 +7,7 @@ class Solution:
             while temperatureStack and t > temperatureStack[-1][0]:
                 currTemp, currIndex = temperatureStack.pop()
                 answer[currIndex] = i - currIndex
-            temperatureStack.append([t, i])
+            temperatureStack.append((t, i))
     
         
         return answer
