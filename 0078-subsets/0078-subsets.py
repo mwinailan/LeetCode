@@ -1,18 +1,21 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        subsets = []
+        subsetResults = []
         currentSubset = []
-        def findSubsets(index):
+        
+        def findSubsets(currentSubset, index):
             if index >= len(nums):
-                subsets.append(currentSubset.copy())
+                subsetResults.append(currentSubset.copy())
                 return
-            
+                
             currentSubset.append(nums[index])
-            findSubsets(index + 1)
+            findSubsets(currentSubset, index+1)
             
             currentSubset.pop()
-            findSubsets(index + 1)
+            findSubsets(currentSubset, index+1)
+    
+        findSubsets(currentSubset, 0)
+        return subsetResults
             
-        findSubsets(0)
-        return subsets
+            
         
