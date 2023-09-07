@@ -1,6 +1,6 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        coinsNeededForAmount = [(amount + 1)] * (amount + 1)
+        coinsNeededForAmount = [(amount + 1) for i in range(amount + 2)]
         coinsNeededForAmount[0] = 0
         
         for amount in range(1, amount + 1):
