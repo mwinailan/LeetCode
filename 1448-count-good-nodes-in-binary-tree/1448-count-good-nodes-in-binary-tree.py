@@ -14,15 +14,9 @@ class Solution:
             currentMax = max(currentMax, node.val)
             
             if currentMax > node.val:
-                res = 0
+                return countGoodNodes(node.left, currentMax) + countGoodNodes(node.right, currentMax)
             else:
-                res = 1
-            
-            res += countGoodNodes(node.left, currentMax)
-            res += countGoodNodes(node.right, currentMax)
-            
-            return res
-        
+                return 1 + countGoodNodes(node.left, currentMax) + countGoodNodes(node.right, currentMax)
         
         return countGoodNodes(root, root.val)
         
