@@ -12,6 +12,8 @@ class Solution:
             if s1 > s2:
                 heapq.heappush(stones, -(s1 - s2))
             
-        stones.append(0)
-        return abs(stones[0])
+        if len(stones) == 0:
+            return 0
+        else:
+            return abs(stones[0])
         
