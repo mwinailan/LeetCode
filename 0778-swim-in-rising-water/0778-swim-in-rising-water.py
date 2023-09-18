@@ -12,7 +12,7 @@ class Solution:
             for dr, dc in directions:
                 newR = currentRow + dr
                 newC = currentCol + dc
-                if newR < 0 or newC < 0 or newR == len(grid) or newC == len(grid) or (newR, newC) in isVisited:
+                if newR not in range(len(grid)) or newC not in range(len(grid)) or (newR, newC) in isVisited:
                     continue
                 isVisited.add((newR,newC))
                 heapq.heappush(minHeap, [max(currentHeight, grid[newR][newC]), newR, newC])
