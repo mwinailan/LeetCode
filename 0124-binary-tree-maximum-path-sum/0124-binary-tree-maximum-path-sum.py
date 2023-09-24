@@ -14,10 +14,10 @@ class Solution:
             
             maxLeft = max(findMaxPath(node.left), 0)
             maxRight = max(findMaxPath(node.right), 0)
-            # no split
+            
             res[0] = max(res[0], node.val + maxLeft + maxRight)
             
-            #return split
+
             return node.val + max(maxLeft, maxRight)
         
         findMaxPath(root)
