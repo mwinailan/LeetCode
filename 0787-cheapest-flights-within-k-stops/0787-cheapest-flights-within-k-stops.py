@@ -8,8 +8,8 @@ class Solution:
             for s, to, price in flights:
                 if srcToDstDistance[s] == float("inf"):
                     continue
-                if srcToDstDistance[s] + price < srcToDstDistanceTemp[to]:
-                    srcToDstDistanceTemp[to] = srcToDstDistance[s] + price
+                else:
+                    srcToDstDistanceTemp[to] = min(srcToDstDistanceTemp[to], srcToDstDistance[s] + price)
             srcToDstDistance = srcToDstDistanceTemp
         
         return srcToDstDistance[dst] if srcToDstDistance[dst] != float("inf") else -1
