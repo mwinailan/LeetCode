@@ -1,35 +1,29 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        if not grid:
-            return 0
-        
+        ROWS, COLS = len(grid), len(grid[0])
         isVisited = set()
-        numberOfIslands = 0
         
         
-        def visitIsland(row, collumn):
-            islandQueue = collections.deque()
-            isVisited.add((row, collumn))
-            islandQueue.append((row, collumn))
+        # Use DFS to mark an island starting from coordinates (i, j)
+        def markIslands(i, j):
+            # TODO: Stopping Criterias
+            if i not in range(ROWS) or j not in range(COLS) or (i,j) in isVisited or grid[i][j] == "0":
+                return
             
-            while(islandQueue):
-                rowCurrent, collumnCurrent = islandQueue.popleft()
-                
-                directions = [[1,0], [-1,0], [0,1], [0,-1]]
-                for x, y in directions:
-                    rowNew = rowCurrent + x
-                    collumnNew = collumnCurrent + y
-                    
-                    if (rowNew in range(len(grid)) and collumnNew in range(len(grid[0])) and grid[rowNew][collumnNew] == "1" and (rowNew, collumnNew) not in isVisited):
-                        islandQueue.append((rowNew, collumnNew))
-                        isVisited.add((rowNew, collumnNew))
-                    
+            isVisited.add((i,j))
             
+            markIslands(i + 1, j)
+            markIslands(i - 1, j)
+            markIslands(i, j + 1)
+            markIslands(i, j - 1)
         
-        for row in range(len(grid)):
-            for collumn in range(len(grid[0])):
-                if ( grid[row][collumn] == "1" and (row, collumn) not in isVisited):
-                    visitIsland(row,collumn)
-                    numberOfIslands += 1
+        numIslands = 0
+        # Loop through every point in the grid, and run the DFS function if it meets criterias
+        for i in range(ROWS):
+            for j in range(COLS):
+                if grid[i][j] == "1" and (i,j) not in isVisited:
+                    markIslands(i, j)
+                    numIslands += 1
         
-        return numberOfIslands
+        return numIslands
+                    
