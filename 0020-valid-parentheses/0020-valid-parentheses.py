@@ -1,20 +1,14 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        parenthesesStack = []
-        closeToOpen = {"}" : "{", "]" : "[", ")" : "("}
+        parenthesisStack = []
+        parenthesisMap = { ")" : "(", "]" : "[", "}" : "{"}
         
-        for symbol in s:
-            if symbol in closeToOpen:
-                if parenthesesStack and parenthesesStack[-1] == closeToOpen[symbol]:
-                    parenthesesStack.pop()
-                else:
-                    return False
-            else:
-                parenthesesStack.append(symbol)
+        for p in s:
+            if p not in parenthesisMap:
+                parenthesisStack.append(p)
+                continue
+            if not parenthesisStack or parenthesisStack[-1] != parenthesisMap[p]:
+                return False
+            parenthesisStack.pop()
         
-        if parenthesesStack:
-            return False
-        else:
-            return True
-            
-        
+        return not parenthesisStack
