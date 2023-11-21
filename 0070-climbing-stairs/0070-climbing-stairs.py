@@ -1,15 +1,20 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
-        first, second = 1, 2
+        oneDown, twoDown = 1, 2
+        
         if n == 1:
-            return first
+            return oneDown
         if n == 2:
-            return second
+            return twoDown
         
-        for i in range(2, n):
-            temp = second
-            second = first + second
-            first = temp
+        i = 0
+        while i < (n - 2):
+            temp = oneDown + twoDown
+            oneDown = twoDown
+            twoDown = temp
+            i += 1
+            
+        return twoDown
+            
         
-        return second
         
