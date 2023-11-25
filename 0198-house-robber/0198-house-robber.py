@@ -1,17 +1,10 @@
 class Solution:
-    def rob(self, nums: List[int]) -> int:   
-        houseOverMaxMoney = 0
-        maxMoney = 0
-        houseIndex = 0
+    def rob(self, nums: List[int]) -> int:
+        # Dynamic Programming approach
+        rob1, rob2 = 0, 0
+        for n in nums:
+            current = max(n + rob1, rob2)
+            rob1 = rob2
+            rob2 = current
         
-        while(houseIndex < len(nums)):
-            currentMoney = max(nums[houseIndex] + houseOverMaxMoney, maxMoney)
-            houseOverMaxMoney = maxMoney
-            maxMoney = currentMoney
-            houseIndex += 1
-        
-        return maxMoney
-            
-            
-            
-            
+        return rob2
