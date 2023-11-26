@@ -1,28 +1,31 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        courseVisited = set()
-        coursePrereq = {i: [] for i in range(numCourses)}
         
-        for course, prereq in prerequisites:
-            coursePrereq[course].append(prereq)
+        # Create an adjacency list fot the courses
+        coursePrerequisites = { i : [] for i in range(numCourses)}
+        for course, prerequisite in prerequisites:
+            coursePrerequisites[course].append(prerequisite)
         
-        def canFinishCourse(course):
-            if course in courseVisited:
+        isVisited = set()
+        # DFS solution to find eligibility
+        def findEligibility(course):
+            # TODO: Stopping Criterias
+            if course in isVisited:
                 return False
-            if coursePrereq[course] is []:
+            if coursePrerequisites[course] == []:
                 return True
             
-            courseVisited.add(course)
-            for prereq in coursePrereq[course]:
-                if not canFinishCourse(prereq):
-                    return False
-            coursePrereq[course] = []
-            courseVisited.remove(course)
+            isVisited.add(course)
+            for prerequisite in coursePrerequisites[course]:
+                if not findEligibility(prerequisite): return False
             
+            isVisited.remove(course)
+            coursePrerequisites[course] = []
             return True
         
+        # Loop through every course
         for course in range(numCourses):
-            if not canFinishCourse(course): return False
+            if not findEligibility(course): return False
         
         return True
         
