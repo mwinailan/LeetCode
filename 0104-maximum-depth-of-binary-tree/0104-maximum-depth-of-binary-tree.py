@@ -16,17 +16,21 @@ class Solution:
     
         
         #Iterative BFS
+        if not root:
+            return 0
+        
         nodeQ = collections.deque()
         nodeQ.append(root)
         depthOfTree = 0
         while nodeQ:
             for i in range(len(nodeQ)):
                 currNode = nodeQ.popleft()
-                if currNode:
+                if currNode.left:
                     nodeQ.append(currNode.left)
+                if currNode.right:
                     nodeQ.append(currNode.right)
             
             depthOfTree += 1
         
-        return depthOfTree - 1
+        return depthOfTree
             
