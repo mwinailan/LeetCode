@@ -1,26 +1,29 @@
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
+        # Binary search soluition for O(nlogn) runtime
         left, right = 0, len(nums) - 1
-    
-        while left <= right:
-            middle = (left + right) // 2
+        
+        while(left <= right):
+            mid = (left + right) // 2
             
-            if nums[middle] == target:
-                return middle
-            
-            # 4 5 6 7 0 1 2
-
-            # left side
-            if nums[0] <= nums[middle]:
-                if target < nums[0] or target > nums[middle]:
-                    left = middle + 1
-                else:
-                    right = middle - 1
-
+            if nums[mid] == target:
+                return mid
+            # Case 1: If mid is in the left sorted portion
+            elif nums[mid] >= nums[0]:
+                # Case 1.1:
+                if target > nums[mid] or target < nums[0]:
+                    left = mid + 1
+                # Case 1.2:
+                else: 
+                    right = mid - 1
+                
+            # Case 2: If mid is in the right sorted portion
             else:
-                if target > nums[len(nums) - 1]  or target < nums[middle]:
-                    right = middle - 1
+                # Case 2.1:
+                if target < nums[mid] or target > nums[len(nums) - 1]:
+                    right = mid - 1
+                # Case 2.2:
                 else:
-                    left = middle + 1
+                    left = mid + 1
             
         return -1
