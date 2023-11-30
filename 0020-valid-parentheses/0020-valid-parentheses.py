@@ -1,14 +1,16 @@
 class Solution:
     def isValid(self, s: str) -> bool:
         parenthesisStack = []
-        parenthesisMap = { ")" : "(", "]" : "[", "}" : "{"}
+        closeToOpen = { ")" : "(", "}" : "{", "]" : "["}
         
         for p in s:
-            if p not in parenthesisMap:
+            if p in ["(", "[", "{"]:
                 parenthesisStack.append(p)
-                continue
-            if not parenthesisStack or parenthesisStack[-1] != parenthesisMap[p]:
-                return False
-            parenthesisStack.pop()
+            
+            else:
+                if parenthesisStack and parenthesisStack[-1] == closeToOpen[p]:
+                    parenthesisStack.pop()
+                else:
+                    return False
         
-        return not parenthesisStack
+        return True if len(parenthesisStack) == 0 else False
