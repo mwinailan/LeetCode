@@ -10,24 +10,20 @@ from typing import Optional
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
         if not node:
-            return
-        
+            return None
         oldToNew = {}
-        
-        def cloneNodes(node):
+        # DFS solution to clone
+        def clone(node):
+            #TODO: Stopping Criteria
             if node in oldToNew:
                 return oldToNew[node]
             
-            newNode = Node(node.val)
-            oldToNew[node] = newNode
-            
+            # Make clone node, and run clone recursively on neighbors
+            clonedNode = Node(node.val)
+            oldToNew[node] = clonedNode
             for neighbor in node.neighbors:
-                oldToNew[node].neighbors.append(cloneNodes(neighbor))
+                clonedNode.neighbors.append(clone(neighbor))
             
-            return newNode
-    
+            return clonedNode
         
-        return cloneNodes(node)
-            
-            
-        
+        return clone(node)
