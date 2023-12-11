@@ -1,20 +1,19 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        uniqueCombinations = []
-        
-        def findCombinations(index, currentCombination, currentTotal):
-            if index >= len(candidates) or currentTotal > target:
+        combinations = []
+        # Backtracking solution using DFS, going through each candidate
+        def findCombinations(i, currentCombination, totalSum):
+            if totalSum == target:
+                combinations.append(currentCombination.copy())
                 return
-            if currentTotal == target:
-                uniqueCombinations.append(currentCombination.copy())
+            if totalSum > target or i >= len(candidates):
                 return
             
-            currentCombination.append(candidates[index])
-            findCombinations(index, currentCombination, candidates[index] + currentTotal)
-            
+            currentCombination.append(candidates[i])
+            findCombinations(i, currentCombination, totalSum + candidates[i])
             currentCombination.pop()
-            findCombinations(index + 1, currentCombination, currentTotal)
+            findCombinations(i + 1, currentCombination, totalSum)
             
         findCombinations(0, [], 0)
-        return uniqueCombinations
-        
+        return combinations
+            
