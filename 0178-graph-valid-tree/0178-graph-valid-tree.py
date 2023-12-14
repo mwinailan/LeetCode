@@ -10,26 +10,25 @@ class Solution:
     """
     def valid_tree(self, n: int, edges: List[List[int]]) -> bool:
         # write your code here
-        graphMapping = {i: [] for i in range(n)}
-
-        for e1, e2 in edges:
-            graphMapping[e1].append(e2)
-            graphMapping[e2].append(e1)
         
-        isVisited = set()
+        # Create adjacency list for edges
+        adjList = {i:[] for i in range(n)}
+        for e1, e2 in edges:
+            adjList[e1].append(e2)
+            adjList[e2].append(e1)
 
-        def checkNodes(node, prev):
+        isVisited = set()
+        # DFS solution to mark all nodes
+        def markNodes(node, previousNode):
             if node in isVisited:
                 return False
             isVisited.add(node)
 
-            for neighbor in graphMapping[node]:
-                if neighbor == prev:
+            for neighbor in adjList[node]:
+                if neighbor == previousNode:
                     continue
-                else:
-                    if not checkNodes(neighbor, node):
-                        return False
+                if not markNodes(neighbor, node):
+                    return False
             return True
         
-        return checkNodes(0, -1) and len(isVisited) == n
- 
+        return markNodes(0, -1) and n == len(isVisited)
