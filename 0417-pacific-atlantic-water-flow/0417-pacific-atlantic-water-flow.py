@@ -1,31 +1,35 @@
 class Solution:
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
-        numOfRows, numOfCols = len(heights), len(heights[0])
+        ROWS, COLS = len(heights), len(heights[0])
         flowsToPacific, flowsToAtlantic = set(), set()
         
-        def flowsTo(row, col, oceanName, previousHeight):
-            if row not in range(numOfRows) or col not in range(numOfCols) or previousHeight > heights[row][col] or (row,col) in oceanName:
+        # DFS solution to mark (r,c)
+        def markLand(r, c, flowsTo, prevHeight):
+            if r not in range(ROWS) or c not in range(COLS) or (r,c) in flowsTo or heights[r][c] < prevHeight:
                 return
+            flowsTo.add((r,c))
             
-            oceanName.add((row, col))
-            flowsTo(row + 1, col, oceanName, heights[row][col])
-            flowsTo(row - 1, col, oceanName, heights[row][col])
-            flowsTo(row, col + 1, oceanName, heights[row][col])
-            flowsTo(row, col - 1, oceanName, heights[row][col])
+            markLand(r + 1, c, flowsTo, heights[r][c])
+            markLand(r - 1, c, flowsTo, heights[r][c])
+            markLand(r, c + 1, flowsTo, heights[r][c])
+            markLand(r, c - 1, flowsTo, heights[r][c])
+            
+            
         
-        for c in range(numOfCols):
-            flowsTo(0, c, flowsToPacific, heights[0][c])
-            flowsTo(numOfRows - 1, c, flowsToAtlantic, heights[numOfRows - 1][c])
-        
-        for r in range(numOfRows):
-            flowsTo(r, 0, flowsToPacific, heights[r][0])
-            flowsTo(r, numOfCols - 1, flowsToAtlantic, heights[r][numOfCols - 1])
+        # Iterate through rows
+        for r in range(ROWS):
+            markLand(r, 0, flowsToPacific, heights[r][0])
+            markLand(r, COLS - 1, flowsToAtlantic, heights[r][COLS - 1])
+        # Iterate through cols
+        for c in range(COLS):
+            markLand(0, c, flowsToPacific, heights[0][c])
+            markLand(ROWS - 1, c, flowsToAtlantic, heights[ROWS - 1][c])
         
         result = []
-        for r in range(numOfRows):
-            for c in range(numOfCols):
+        #Iterate through every (r,c) and add to res if both in atlantic and pacific
+        for r in range(ROWS):
+            for c in range(COLS):
                 if (r,c) in flowsToPacific and (r,c) in flowsToAtlantic:
                     result.append([r,c])
         
         return result
-        
