@@ -3,12 +3,13 @@ class Solution:
         left = 0
         maxProfit = 0
         
-        for right in range(1, len(prices)):
-            #Case 1: if prices in right is larger than prices in left, then we find the max profit available
-            if prices[right] >= prices[left]:
-                maxProfit = max(maxProfit, prices[right] - prices[left])
-            #Case 2: if prices in right is smaller than prices in left, then we shift left to right price
-            elif prices[right] < prices[left]:
+        for right in range(len(prices)):
+            # Case 1: If prices[right] is lower than prices[left], move the left pointer to right
+            if prices[right] < prices[left]:
                 left = right
+            # Case 2: If prices[left] is lower than prices[right], compute currentProfit, and move the right pointer
+            else:
+                maxProfit = max(maxProfit, prices[right] - prices[left])
         
         return maxProfit
+                
