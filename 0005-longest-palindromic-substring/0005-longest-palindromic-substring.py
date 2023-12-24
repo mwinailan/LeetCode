@@ -3,23 +3,24 @@ class Solution:
         longestSubstring = 0
         res = ""
         
+        # Iterate through every element, then find odd and even length palindromes
         for i in range(len(s)):
-            left, right = i, i
-            while left in range(len(s)) and right in range(len(s)) and s[left] == s[right]:
-                longestSubstring = max(longestSubstring, right - left + 1)
-                if (right - left + 1 == longestSubstring):
-                    res = s[left:right + 1]
-                left -= 1
-                right += 1
+            # Find Odd length palindromes
+            l, r = i, i
+            while l >= 0 and r < len(s) and s[l] == s[r]:
+                if (r - l + 1) > longestSubstring:
+                    longestSubstring = (r - l + 1)
+                    res = s[l:r + 1]
+                l -= 1
+                r += 1
             
-            left, right = i, i + 1
-            while left in range(len(s)) and right in range(len(s)) and s[left] == s[right]:
-                longestSubstring = max(longestSubstring, right - left + 1)
-                if (right - left + 1 == longestSubstring):
-                    res = s[left:right + 1]
-                left -= 1
-                right += 1
-        
-        
+            # Find Even length palindromes
+            l, r = i, i + 1
+            while l >= 0 and r < len(s) and s[l] == s[r]:
+                if (r - l + 1) > longestSubstring:
+                    longestSubstring = (r - l + 1)
+                    res = s[l:r + 1]
+                l -= 1
+                r += 1
+
         return res
-        
