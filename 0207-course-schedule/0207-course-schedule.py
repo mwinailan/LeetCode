@@ -1,7 +1,7 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         
-        # Create an adjacency list fot the courses
+        # Create an adjacency list for the courses
         coursePrerequisites = { i : [] for i in range(numCourses)}
         for course, prerequisite in prerequisites:
             coursePrerequisites[course].append(prerequisite)
