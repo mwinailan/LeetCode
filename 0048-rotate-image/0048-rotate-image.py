@@ -7,24 +7,21 @@ class Solution:
         while left < right:
             top, bottom = left, right
             for i in range(right - left):
-                topLeft = matrix[top][left + i]
+                # Store top left in temp
+                temp = matrix[top][left + i]
                 
-                # bot left to top left
+                #element in top left becomes bottom left
                 matrix[top][left + i] = matrix[bottom - i][left]
                 
-                # bot right to bot left
+                #element in bottom left becomes bottom right
                 matrix[bottom - i][left] = matrix[bottom][right - i]
                 
-                # top right to bot right
+                #element in bottom right becomes top right
                 matrix[bottom][right - i] = matrix[top + i][right]
                 
-                # top left to top right
-                matrix[top + i][right] = topLeft
+                #element in top right becomes temp
+                matrix[top + i][right] = temp
             
             left += 1
             right -= 1
-        
-    
-                
-                
-        
+            
