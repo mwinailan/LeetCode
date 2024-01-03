@@ -3,14 +3,14 @@ class Solution:
         parenthesisStack = []
         closeToOpen = { ")" : "(", "}" : "{", "]" : "["}
         
-        for p in s:
-            if p in ["(", "[", "{"]:
-                parenthesisStack.append(p)
-            
-            else:
-                if parenthesisStack and parenthesisStack[-1] == closeToOpen[p]:
-                    parenthesisStack.pop()
-                else:
+        for c in s:
+            # Case 1: c is a closing bracket
+            if c in closeToOpen and parenthesisStack:
+                current = parenthesisStack.pop()
+                if current != closeToOpen[c]:
                     return False
+            # Case 2: c is an opening bracket
+            else:
+                parenthesisStack.append(c)
         
-        return True if len(parenthesisStack) == 0 else False
+        return len(parenthesisStack) == 0
