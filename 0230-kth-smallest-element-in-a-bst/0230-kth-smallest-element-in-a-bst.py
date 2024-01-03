@@ -6,21 +6,21 @@
 #         self.right = right
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        currentNode = root
-        nodeStack = []
+        current = root
         k_current = 0
+        stack = []
         
-        while currentNode or nodeStack:
-            while currentNode:
-                nodeStack.append(currentNode)
-                currentNode = currentNode.left
-            
-            currentNode = nodeStack.pop()
+        while current or stack:
+            # Go traverse to the left element until we cant, append any elements found this way
+            while current:
+                stack.append(current)
+                current = current.left
+            # Pop an element from the stack, and increment k_current
+            current = stack.pop()
             k_current += 1
+            if k_current == k:
+                return current.val
             
-            if (k_current == k):
-                return currentNode.val
-            currentNode = currentNode.right
-        
-        
+            # Traverse to the right when we cannot go further left
+            current = current.right
         
