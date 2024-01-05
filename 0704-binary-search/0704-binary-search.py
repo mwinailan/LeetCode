@@ -1,21 +1,23 @@
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        # Binary Search
-        # initialize left and right pointer
-        left, right = 0, len(nums) - 1
+        # Binary search solution O(log n)
+        left = 0
+        right = len(nums) - 1
         
-        # criteria left <= right
         while left <= right:
-            # find middle point
-            middle = left + (right - left) // 2
-            # use mid point to find target
-            if nums[middle] == target:
-                return middle
-            elif nums[middle] > target:
-                right = middle - 1
+            mid = (left + right) // 2
+            
+            # Case 1: target value larger than nums[mid], search right side
+            if target > nums[mid]:
+                left = mid + 1
+            # Case 2: target value smaller than nums[mid], search left side
+            elif target < nums[mid]:
+                right = mid - 1
+            
+            # Case 3: return mid if target == nums[mid]
             else:
-                left = middle + 1
-        
-        # still couldnt find answer
+                return mid
+            
+            
+        # if value does not exist in nums
         return -1
-        
