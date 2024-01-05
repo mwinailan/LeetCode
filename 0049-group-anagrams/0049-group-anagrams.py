@@ -1,15 +1,15 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        groupedStrings = defaultdict(list)
-        for s in strs:
-            countOfLetters = [0 for i in range(26 + 1)]
-            
-            for c in s:
-                countOfLetters[ord(c) - ord("a")] += 1
-            
-            groupedStrings[tuple(countOfLetters)].append(s)
+        anagrams = defaultdict(list)
         
-        return groupedStrings.values()
+        for string in strs:
+            letterCount = [0] * 26
+            # Count the letters, and use the resulting list as a tuple for the key in hashmap
+            for s in string:
+                letterCount[ord(s) - ord("a")] += 1
+            
+            anagrams[tuple(letterCount)].append(string)
                 
         
+        return anagrams.values()
         
