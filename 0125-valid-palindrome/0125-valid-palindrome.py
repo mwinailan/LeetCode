@@ -1,8 +1,10 @@
 class Solution:
     def isPalindrome(self, s: str) -> bool:
+        if not s:
+            return False
         
-        def isAlphanumeric(l: chr):
-            if (ord(l) >= ord('A') and ord(l) <= ord('Z') or ord(l) >= ord('a') and ord(l) <= ord('z') or ord(l) >= ord('0') and ord(l) <= ord('9')):
+        def isAlphaNumeric(c):
+            if (ord(c) <= ord("z") and ord(c) >= ord("a")) or (ord(c) <= ord("9") and ord(c) >= ord("0")):
                 return True
             else:
                 return False
@@ -10,19 +12,20 @@ class Solution:
         s = s.lower()
         left = 0
         right = len(s) - 1
-        
-        while (left < right):
-            # Move pointers until we find alphanumeric
-            while left < right and not isAlphanumeric(s[left]):
+        # 2 Pointer solution to check palindrome
+        while left < right:
+            while left < right and not isAlphaNumeric(s[left]):
                 left += 1
-            while left < right and not isAlphanumeric(s[right]):
+            while left < right and not isAlphaNumeric(s[right]):
                 right -= 1
-                
-            # Compare both left and right pointers, then move them by 1
+            
             if s[left] != s[right]:
                 return False
             
             left += 1
             right -= 1
         
+        
         return True
+            
+        
