@@ -2,7 +2,7 @@ class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
         ROWS, COLS = len(matrix), len(matrix[0])
         spiral_order_elements = []
-        # Set boundaries
+        # Set boundaries for matrix
         left, right = 0, COLS
         top, bottom = 0, ROWS
         
