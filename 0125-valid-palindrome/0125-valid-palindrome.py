@@ -12,7 +12,8 @@ class Solution:
         s = s.lower()
         left = 0
         right = len(s) - 1
-        # 2 Pointer solution to check palindrome
+        
+        # 2 Pointer Solution
         while left < right:
             while left < right and not isAlphaNumeric(s[left]):
                 left += 1
@@ -24,7 +25,6 @@ class Solution:
             
             left += 1
             right -= 1
-        
         
         return True
             
