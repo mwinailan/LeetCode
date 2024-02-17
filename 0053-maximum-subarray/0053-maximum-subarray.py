@@ -1,19 +1,13 @@
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        maxSubarray = nums[0]
+        maximumSubarray = nums[0]
         currentSubarray = 0
         
         for n in nums:
-            # Update current
             currentSubarray += n
+            maximumSubarray = max(maximumSubarray, currentSubarray)
             
-            # Update maxSubarray value
-            maxSubarray = max(maxSubarray, currentSubarray)
-            
-            # Discard current sum if less than 0
             if currentSubarray < 0:
                 currentSubarray = 0
             
-        
-        return maxSubarray
-        
+        return maximumSubarray
