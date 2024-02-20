@@ -1,26 +1,25 @@
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        longestSubstring = 0
-        res = ""
-        
-        # Iterate through every element, then find odd and even length palindromes
-        for i in range(len(s)):
-            # Find Odd length palindromes
+        longestPalindromeLength = 0
+        currentSubstring = ""
+        # Loop through every letter in s
+        for i in range(len(s)):            
+            # Look for odd length palindromes
             l, r = i, i
-            while l >= 0 and r < len(s) and s[l] == s[r]:
-                if (r - l + 1) > longestSubstring:
-                    longestSubstring = (r - l + 1)
-                    res = s[l:r + 1]
+            while l in range(len(s)) and r in range(len(s)) and s[l] == s[r]:
+                if (r - l + 1) > longestPalindromeLength:
+                    currentSubstring = s[l:r+1]
+                    longestPalindromeLength = r - l + 1
                 l -= 1
                 r += 1
             
-            # Find Even length palindromes
+            # Look for even length palindromes
             l, r = i, i + 1
-            while l >= 0 and r < len(s) and s[l] == s[r]:
-                if (r - l + 1) > longestSubstring:
-                    longestSubstring = (r - l + 1)
-                    res = s[l:r + 1]
+            while l in range(len(s)) and r in range(len(s)) and s[l] == s[r]:
+                if (r - l + 1) > longestPalindromeLength:
+                    currentSubstring = s[l:r+1]
+                    longestPalindromeLength = r - l + 1
                 l -= 1
                 r += 1
-
-        return res
+    
+        return currentSubstring
