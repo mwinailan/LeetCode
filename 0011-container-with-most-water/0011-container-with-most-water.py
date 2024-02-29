@@ -6,14 +6,14 @@ class Solution:
         
         # 2 pointer greedy solution
         while (left <= right):
-            currentArea = (right - left) * min(height[left], height[right])
+            currentArea = (right - left) * min(height[right], height[left])
             maxArea = max(maxArea, currentArea)
             
-            # Case 1: if left height is taller, shift the right pointer
-            if height[left] > height[right]:
-                right -= 1
-            # Case 2: if right height is taller, shift the left pointer
-            else:
+            # Case 1:
+            if height[right] > height[left]:
                 left += 1
-                
+            
+            # Case 2:
+            else:
+                right -= 1
         return maxArea
