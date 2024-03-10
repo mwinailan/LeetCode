@@ -1,24 +1,20 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        # Have the count of each num as an index
         frequency = [[] for i in range(len(nums) + 1)]
-        letterCount = {}
+        elementToCount = {}
         
-        # Count each num in nums
-        for num in nums:
-            letterCount[num] = 1 + letterCount.get(num, 0)
+        for n in nums:
+            elementToCount[n] = 1 + elementToCount.get(n, 0)
         
-        # Put the letter counts into the frequency array
-        for num, count in letterCount.items():
-            frequency[count].append(num)
+        for element, count in elementToCount.items():
+            frequency[count].append(element)
         
-        # Get the top k frequent elements
         topKFrequent = []
-        for i in range(len(nums), -1, -1):
-            for n in frequency[i]:
-                topKFrequent.append(n)
-                
+        for i in range(len(frequency) - 1, 0, -1):
+            for e in frequency[i]:
+                topKFrequent.append(e)
                 if len(topKFrequent) == k:
                     return topKFrequent
-            
+        
+        return topKFrequent
         
