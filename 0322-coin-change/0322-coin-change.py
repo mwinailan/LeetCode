@@ -1,16 +1,12 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        coinsNeededForAmount = [(amount + 1) for i in range(amount + 2)]
-        coinsNeededForAmount[0] = 0
+        coinMemoization = [float("Inf")] * (amount + 1)
+        coinMemoization[0] = 0
         
-        for amount in range(1, amount + 1):
-            for coin in coins:
-                if (amount - coin) >= 0:
-                    coinsNeededForAmount[amount] = min(coinsNeededForAmount[amount], 1 + coinsNeededForAmount[amount - coin])
-        
-        
-        if coinsNeededForAmount[amount] == (amount + 1):
-            return -1
-        else:
-            return coinsNeededForAmount[amount]
-        
+        for i in range(1, len(coinMemoization)):
+            for c in coins:
+                if (i - c) >= 0:
+                    coinMemoization[i] = min(coinMemoization[i], 1 + coinMemoization[i-c])
+                    
+        return coinMemoization[amount] if coinMemoization[amount] != float("Inf") else -1
+            
