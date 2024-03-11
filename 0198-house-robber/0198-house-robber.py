@@ -1,10 +1,11 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        # Dynamic Programming approach
-        rob1, rob2 = 0, 0
+        # house1   house2  curhouse
+        house1, house2 = 0, 0
+        # DP solution
         for n in nums:
-            current = max(n + rob1, rob2)
-            rob1 = rob2
-            rob2 = current
+            curhouse = max(n + house1, house2)
+            house1 = house2
+            house2 = curhouse
         
-        return rob2
+        return house2
