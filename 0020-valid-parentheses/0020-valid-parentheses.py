@@ -1,20 +1,16 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        closeToOpen = {")" : "(", "]" : "[", "}" : "{"}
-        parenthesisStack = []
+        closingToOpening = {")" : "(", "]" : '[', "}" : "{"}
+        parenthesesStack = []
         
         for c in s:
-            # Case 1: c is a closing bracket
-            if c in closeToOpen:
-                # Case 1.1: c matches the top of parenthesisStack
-                if parenthesisStack and parenthesisStack[-1] == closeToOpen[c]:
-                    parenthesisStack.pop()
-                # Case 1.2: c doesnt match
-                else:
+            # Case 1: Closed brackets
+            if c in closingToOpening and parenthesesStack:
+                curr = parenthesesStack.pop()
+                if closingToOpening[c] != curr:
                     return False
-            # Case 2: c is an opening bracket:
+            # Case 2: Opening Brackets
             else:
-                parenthesisStack.append(c)
-                
-        return len(parenthesisStack) == 0
+                parenthesesStack.append(c)
         
+        return len(parenthesesStack) == 0
