@@ -1,31 +1,26 @@
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        if not s:
-            return False
-        
         def isAlphaNumeric(c):
-            if (ord(c) <= ord("z") and ord(c) >= ord("a")) or (ord(c) <= ord("9") and ord(c) >= ord("0")):
+            if (ord(c) >= ord('a') and ord(c) <= ord('z')) or (ord(c) >= ord('A') and ord(c) <= ord('Z')) or (ord(c) >= ord('0') and ord(c) <= ord('9')):
                 return True
             else:
                 return False
-            
-        s = s.lower()
-        left = 0
-        right = len(s) - 1
         
-        # 2 Pointer Solution
-        while left < right:
-            while left < right and not isAlphaNumeric(s[left]):
+        # 2 pointer solution, 1 pass O(n)
+        left, right = 0, len(s)-1
+        
+        while(left < right):
+            # Remove non alphanumeric
+            while not isAlphaNumeric(s[left]) and left < right:
                 left += 1
-            while left < right and not isAlphaNumeric(s[right]):
-                right -= 1
+            while not isAlphaNumeric(s[right]) and left < right:
+                right -= 1 
             
-            if s[left] != s[right]:
+            # Compare 
+            if s[left].lower() != s[right].lower():
                 return False
             
             left += 1
             right -= 1
         
         return True
-            
-        
