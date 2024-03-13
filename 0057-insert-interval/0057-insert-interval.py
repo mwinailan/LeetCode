@@ -1,18 +1,18 @@
 class Solution:
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        newIntervals = []
+        intervalResult = []
         for i in range(len(intervals)):
-            # Case 1: newInterval starts after cEnd
-            if newInterval[0] > intervals[i][1]:
-                newIntervals.append(intervals[i])
-            # Case 2: newInterval ends before cStart
+            # Case 1: interval end before newInterval start
+            if intervals[i][1] < newInterval[0]:
+                intervalResult.append(intervals[i])
+            # Case 2: newInterval end before interval start
             elif newInterval[1] < intervals[i][0]:
-                newIntervals.append(newInterval)
-                return newIntervals + intervals[i:]
-            # Case 3: newInterval overlaps the previous interval
+                intervalResult.append(newInterval)
+                return intervalResult + intervals[i:]
+            # Case 3: overlapping intervals
             else:
                 newInterval = [min(newInterval[0], intervals[i][0]), max(newInterval[1], intervals[i][1])]
-            
-        newIntervals.append(newInterval)
-        return newIntervals
-            
+        
+        intervalResult.append(newInterval)
+        
+        return intervalResult
