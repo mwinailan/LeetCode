@@ -1,17 +1,17 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        #sCharCount = Counter(s)
-        #tCharCount = Counter(t)
-        
         if len(s) != len(t):
             return False
         
-        sCharCount = [0] * 26
-        tCharCount = [0] * 26
+        # O(n) time complexity
+        # O(n) space complexity
+        sCounter = {}
+        tCounter = {}
         
         for i in range(len(s)):
-            sCharCount[ord(s[i]) - ord("a")] += 1
-            tCharCount[ord(t[i]) - ord("a")] += 1
+            sCounter[s[i]] = 1 + sCounter.get(s[i], 0)
+            tCounter[t[i]] = 1 + tCounter.get(t[i], 0)
         
-        return sCharCount == tCharCount
+        return sCounter == tCounter
+        
         
