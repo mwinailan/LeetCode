@@ -1,10 +1,10 @@
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
-        goal = len(nums) - 1
-        
+        # iterate through all num from behind
+        reachable = len(nums) - 1
         for i in range(len(nums) - 2, -1, -1):
-            if i + nums[i] >= goal:
-                goal = i
+            # move the reachable pointer if appropriate
+            if (nums[i] + i) >= reachable:
+                reachable = i
         
-        return goal == 0
-            
+        return reachable == 0
