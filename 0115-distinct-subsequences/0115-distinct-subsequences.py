@@ -1,7 +1,7 @@
 class Solution:
     def numDistinct(self, s: str, t: str) -> int:
         
-        cache = {} # (i,j) = res
+        cache = {} # (i,j)
         
         def findDistinctSubsequences(i, j):
             if j == len(t):
