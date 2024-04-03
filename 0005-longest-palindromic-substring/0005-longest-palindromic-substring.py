@@ -11,7 +11,7 @@ class Solution:
                 left -= 1
                 right += 1 
             
-            # Find the even length palindrome
+            # Find the even length palindrom
             left, right = i, i + 1
             while left in range(len(s)) and right in range(len(s)) and s[left] == s[right]:
                 if (right - left + 1) > len(longestPalindromicSubstring):
