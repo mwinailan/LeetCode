@@ -4,7 +4,7 @@ class Solution:
         parenthesesStack = []
         
         for c in s:
-            # Case 1: Closed brackets
+            # Case 1: Closed bracket
             if c in closingToOpening and parenthesesStack:
                 curr = parenthesesStack.pop()
                 if closingToOpening[c] != curr:
