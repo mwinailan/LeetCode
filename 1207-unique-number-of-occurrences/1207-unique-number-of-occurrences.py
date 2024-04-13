@@ -1,13 +1,19 @@
 class Solution:
     def uniqueOccurrences(self, arr: List[int]) -> bool:
-        num_count = {}
-        for n in arr:
-            num_count[n] = 1 + num_count.get(n, 0)
+        occurence_count_set = set()
         
-        num_set = set()
-        for count in num_count.values():
-            if count in num_set:
+        number_occurences = {}
+        
+        # 2 pass linear solution
+        for n in arr:
+            number_occurences[n] = 1 + number_occurences.get(n, 0)
+        
+        for count in number_occurences.values():
+            if count in occurence_count_set:
                 return False
-            num_set.add(count)
+            occurence_count_set.add(count)
         
         return True
+        
+        
+        
