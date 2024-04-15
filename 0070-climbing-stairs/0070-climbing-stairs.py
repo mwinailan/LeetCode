@@ -1,11 +1,13 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
-        oneBelow = 1
-        twoBelow = 1
+        # top to bottom approach
+        one_step_up = 1
+        two_steps_up = 1
         
-        for i in range(n - 1):
-            temp = oneBelow
-            oneBelow = oneBelow + twoBelow
-            twoBelow = temp
+        for i in range(n - 2, -1, -1):
+            current_options = one_step_up + two_steps_up
+            two_steps_up = one_step_up
+            one_step_up = current_options
         
-        return oneBelow
+        return one_step_up
+            
