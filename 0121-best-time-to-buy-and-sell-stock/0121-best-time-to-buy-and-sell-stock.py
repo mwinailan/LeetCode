@@ -1,15 +1,13 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        left = 0
-        maxProfit = 0
+        # 2 pointer solution
+        buy = 0
+        max_profit = 0
         
-        for right in range(len(prices)):
-            # Case 1: If prices[right] is lower than prices[left], move the left pointer to right
-            if prices[right] < prices[left]:
-                left = right
-            # Case 2: If prices[left] is lower than prices[right], compute currentProfit, and move the right pointer
-            else:
-                maxProfit = max(maxProfit, prices[right] - prices[left])
+        for sell in range(1, len(prices)):
+            if prices[sell] < prices[buy]:
+                buy = sell
+            
+            max_profit = max(max_profit, prices[sell] - prices[buy])
         
-        return maxProfit
-                
+        return max_profit
