@@ -3,15 +3,12 @@ class Solution:
         if len(s) != len(t):
             return False
         
-        # O(n) time complexity
-        # O(n) space complexity
-        sCounter = {}
-        tCounter = {}
+        s_count = {}
+        t_count = {}
         
         for i in range(len(s)):
-            sCounter[s[i]] = 1 + sCounter.get(s[i], 0)
-            tCounter[t[i]] = 1 + tCounter.get(t[i], 0)
+            s_count[s[i]] = 1 + s_count.get(s[i], 0)
+            t_count[t[i]] = 1 + t_count.get(t[i], 0)
         
-        return sCounter == tCounter
-        
+        return s_count == t_count
         
