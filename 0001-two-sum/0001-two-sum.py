@@ -1,12 +1,10 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        seenNumbers = {}
-        # O(n) memory and time
+        visited_nums = {}
+        
         for i, n in enumerate(nums):
             difference = target - n
-            if difference in seenNumbers:
-                return [i, seenNumbers[difference]]
-            seenNumbers[n] = i
-        
-                
+            if difference in visited_nums:
+                return [i, visited_nums[difference]]
+            visited_nums[n] = i
         
