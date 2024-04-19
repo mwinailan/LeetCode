@@ -2,21 +2,25 @@ class Solution:
     def islandPerimeter(self, grid: List[List[int]]) -> int:
         ROWS, COLS = len(grid), len(grid[0])
         # isVisit set value = (i, j)
-        isVisited = set()
+        is_visited = set()
         
         # DFS solution to find perimeter
         def findPerimeter(i, j):
-            #stopping criteria -> i or j is out of bounds, grid[i][j] == 0
             if i not in range(ROWS) or j not in range(COLS) or grid[i][j] == 0:
                 return 1
-            if (i, j) in isVisited:
+            if (i,j) in is_visited:
                 return 0
             
-            isVisited.add((i, j))
-            #calculate perimeter
-            # return perimeter
-            return findPerimeter(i + 1, j) + findPerimeter(i - 1, j) + findPerimeter(i, j + 1) + findPerimeter(i, j - 1)
-        
+            is_visited.add((i,j))
+            
+            directions = [[1,0], [0,1], [-1,0], [0,-1]]
+            perimeter_length = 0
+            for dx, dy in directions:
+                perimeter_length += findPerimeter(i + dx, j + dy)
+
+            
+            return perimeter_length
+            
         # scan through entire row, and col
         for i in range(ROWS):
             for j in range(COLS):
