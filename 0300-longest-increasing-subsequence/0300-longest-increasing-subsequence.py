@@ -1,13 +1,10 @@
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
-        # Dynamic programming
-        lengthOfLIS = [1] * len(nums)
+        LIS = [1] * len(nums)
+        for i in range(len(nums)-1, -1, -1):
+            for j in range(i + 1, len(nums)):
+                if nums[i] < nums[j]:
+                    LIS[i] = max(LIS[i], 1 + LIS[j])
         
-        # Start from the end (len(nums)) and iterate to the start
-        for i in range(len(nums) - 1, -1, -1):
-            for j in range(i, len(nums)):
-                if (nums[i] < nums[j]):
-                    # Calculate the LIS at index i
-                    lengthOfLIS[i] = max(lengthOfLIS[i], 1 + lengthOfLIS[j])
+        return max(LIS)
         
-        return max(lengthOfLIS)
